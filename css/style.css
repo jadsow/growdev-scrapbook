@@ -1,0 +1,110 @@
+.container {
+    display: flex;
+    justify-content: center;
+}
+
+.areaprincipal {
+    text-align: center;
+    width: 40vw;
+    height: 500px;
+    background-color: #F8F8F8;
+    margin-top: 150px;
+    justify-content: center;
+}
+
+#bem-vindo {
+    margin-top: 40px;
+}
+
+.container-login {
+    display: flex;
+    justify-content: center;
+    margin-top: 4em;
+}
+
+.botao-entrar, .botao-cadastrar {
+    color: #F0F8FF;
+    background-color: #00BFFF;
+}
+
+a {
+    text-decoration: none;
+    color: #F0F8FF;
+}
+
+a:hover {
+    color: #F0F8FF;
+}
+
+.titulo-lista-recados {
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 40px;
+}
+
+.table {
+    margin-top: 40px;
+    text-align: center;
+}
+
+.informacoesRecado {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#prioridade-recado {
+    text-align: center;
+    height: 30px;
+    width: 10%;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    margin-top: 20px;
+}
+
+#descricao-recado {
+    text-align: center;
+    height: 30px;
+    width: 30%;
+    border-radius: 5px;
+    margin-bottom: 5px;
+}
+
+#detalhamento-recado {
+    text-align: center;
+    height: 60px;
+    width: 30%;
+    border-radius: 5px;
+}
+
+.botao-salvar-voltar {
+    margin-top: 10px;
+    width: 10%;
+    border-radius: 5px;
+    background-color: #00BFFF;
+    color: white;
+    text-align: center;
+    border: 1px solid black;
+    cursor: pointer;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+}
+
+.formulario-login {
+    height: 20vh;
+}
+
+#apagar {
+    border-radius: 5px;
+    height: 30px;
+    width: 70px;
+    background-color: #FF0000;
+}
+
+#editar {
+    margin-top: 5px;
+    border-radius: 5px;
+    height: 30px;
+    width: 70px;
+    background-color: rgb(251, 255, 0);
+}

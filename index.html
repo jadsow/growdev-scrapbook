@@ -3,8 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <title>Trabalho Final Módulo Backend</title>
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
-    
+    <div class="container">
+        <div class="areaprincipal border border-2">
+            <h2 id="bem-vindo">Bem-Vindo!</h2>
+            <div class="container-login">
+                <form>
+                    <p class="erro-login"></p>
+                    <div class="mb-4">
+                      <label for="login" class="form-label">Login</label>
+                      <input type="text" class="form-control" id="login-username">
+                    </div>
+                    <div class="mb-4">
+                      <label for="password" class="form-label">Password</label>
+                      <input type="password" class="form-control" id="login-password">
+                    </div>
+                    <div class="mb-4">
+                        <button type="submit" class="btn botao-entrar" onclick="logar(event)">Entrar</button>
+                        <button type="submit" class="btn botao-cadastrar"><a href="./cadastrar.html">Cadastrar</a></button>
+                    </div>  
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="./scripts/login.js"></script>
 </body>
 </html>

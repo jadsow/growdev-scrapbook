@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Trabalho Final Módulo Backend</title>
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="areaprincipal border border-2">
+            <h2 id="bem-vindo">Criar Conta</h2>
+            <div class="container-login">
+                <form>
+                    <p id="erro"></p>
+                    <div class="formulario-login">
+                        <div class="mb-3">
+                        <label for="create-username" class="form-label">Login</label>
+                        <input type="text" class="form-control" id="create-username">
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="password">
+                            <label for="repeat-password" class="form-label">Repita seu Password</label>
+                            <input type="password" class="form-control" id="repeat-password">
+                        </div>
+                        <div class="mb-3">
+                            <button type="submit" class="btn botao-cadastrar" onclick="criarConta (event)">Cadastrar</button>
+                            <button type="submit" class="btn botao-cadastrar"><a href="./index.html">Voltar</a></button>
+                        </div>  
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="./scripts/cadastro.js"></script>
+</body>
+</html>
