@@ -21,8 +21,8 @@ async function adicionarRecado () {
         
         exibirConteudo.innerHTML += `<td>${data.prioridade}</td> 
                                      <td>${data.recado}</td>
-                                        <td><input type="button" value="Remover" placeholder="remover"></input>
-                                        <input type="button" value="Editar" placeholder="editar"></input>
+                                        <td><input type="button" value="Remover" placeholder="remover" id="apagar"></input>
+                                        <input type="button" value="Editar" placeholder="editar" id="editar"></input>
                                     </td>`;
     }
 
