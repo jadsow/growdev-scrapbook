@@ -1,19 +1,27 @@
-const usuario = document.querySelector('#login-username');
-const password = document.querySelector('#login-password');
-let armazenamentoLocal = JSON.parse(localStorage.getItem('cadastros')) || [];
-const erroLogin = document.querySelector('.erro-login');
-
-function logar (event) {
+async function logar (event) {
     event.preventDefault();
-    for (user of armazenamentoLocal) {
-        if (usuario.value === user.username && password.value === user.password) {
-            location.href = "recados.html";
-        } 
-        
-        if (usuario.value.length <3) {
-            erroLogin.innerHTML = 'Digite um usuário válido'
-        } else {
-            erroLogin.innerHTML = 'Revise suas informações'
-        }
-    } 
+    const usuario = document.querySelector('#login-username').value;
+    const password = document.querySelector('#login-password').value;
+    const statusSuccess = 200;
+    const erroLogin = document.querySelector('.erro-login');
+    
+    
+    if (!usuario) {
+        erroLogin.innerHTML = 'Usuário não encontrado';
+    }
+
+    const user = {
+        nome: usuario,
+        senha: password,
+    };
+
+    const {status, data} = await axios.post ('https://trabalhofinal-jadson-api.herokuapp.com/logar', user);
+
+    if (status === statusSuccess) {
+        localStorage.setItem('usuario', JSON.stringify(data))
+        location.href="./recados.html"
+    } else {
+        erroLogin.innerHTML = 'Usuário não encontrado';
+    }
+
 }

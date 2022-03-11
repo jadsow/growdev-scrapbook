@@ -119,3 +119,26 @@ a:hover {
     width: 70px;
     background-color: rgb(251, 255, 0);
 }
+
+#apagar {
+    display: flex;
+    border-radius: 5px;
+    height: 20px;
+    width: 50px;
+    background-color: rgb(255, 30, 0);
+    font-size: 8px;
+    font-weight: bold;
+    color: #F8F8F8;
+}
+
+#editar {
+    display: flex;
+    border-radius: 5px;
+    height: 20px;
+    width: 50px;
+    margin-top: 5px;
+    background-color: rgb(251, 255, 0);
+    font-size: 8px;
+    font-weight: bold;
+    color: #0f0f0f;
+}

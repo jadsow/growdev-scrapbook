@@ -1,65 +1,71 @@
-const valorPrioridade = document.querySelector('#prioridade-recado');
-const descricaoRecado = document.querySelector('#descricao-recado');
-let conteudoRecados = JSON.parse(localStorage.getItem('conteudo')) || [];
+const usuarios = JSON.parse(localStorage.getItem('usuario'));
 
-function adicionarRecado () {
+async function adicionarRecado () {
+    const valorPrioridade = document.querySelector('#prioridade-recado');
+    const descricaoRecado = document.querySelector('#descricao-recado');
+    const statusSuccess = 201;
 
     let conteudo = {
         prioridade : valorPrioridade.value,
-        descricao : descricaoRecado.value,
+        recado : descricaoRecado.value,
     }
 
-    conteudoRecados.push(conteudo);
+    const {status, data} = await axios.post(`https://trabalhofinal-jadson-api.herokuapp.com/cadastro/${usuarios.id}/adicionar-recados`, conteudo);
 
-    salvarRecado()
-    exibirRecado()
+
+    if (statusSuccess === status) {
+        const exibirConteudo = document.querySelector('#linhas-tabela')
+
+        data.prioridade = conteudo.prioridade;
+        data.recado = conteudo.recado;
+        
+        exibirConteudo.innerHTML += `<td>${data.prioridade}</td> 
+                                     <td>${data.recado}</td>
+                                        <td><input type="button" value="Remover" placeholder="remover"></input>
+                                        <input type="button" value="Editar" placeholder="editar"></input>
+                                    </td>`;
+    }
+
+    exibirRecados ()
+
 }
 
-function salvarRecado() {
-    localStorage.setItem('conteudo', JSON.stringify(conteudoRecados))
-}
-
-function exibirRecado () {
-    let mostrarConteudo = document.querySelector('#linhas-tabela');
-    mostrarConteudo.innerHTML = '';
-
-    for (conteudo of conteudoRecados) {
-        const posicao = conteudoRecados.indexOf(conteudo)
-        mostrarConteudo.innerHTML += `
-        <table class="conteudoFinal">
-            <tr>
-            <td>${conteudo.prioridade}</td>
-            <td>${conteudo.descricao}</td>
-            <td>
-            <div> <input type="button" id="apagar" placeholder="apagar" value="Apagar" onclick="removerRecado(${posicao})"></div>
-            <div> <input type="button" id="editar" placeholder="editar" value="Editar" onclick="editarRecado(${posicao})"></div>
-            </td>
-            </tr>
-            </table>`;
+async function exibirRecados () {
+    const {status, data} = await axios.get (`https://trabalhofinal-jadson-api.herokuapp.com/buscar-usuario/${usuarios.id}`);
+    const statusSuccess = 200;
+    const exibirConteudo = document.querySelector('#linhas-tabela')
+    exibirConteudo.innerHTML = ''
+    if (status === statusSuccess) {
+        data.recados.map(item => {
+            exibirConteudo.innerHTML += `<td>${item.prioridade}</td>
+                                         <td>${item.recado}</td>
+                                         <td><input type="button" value="Remover" placeholder="remover" onclick="deletarRecados(${data.id}, ${item.id})" id="apagar"></input>
+                                         <input type="button" value="Editar" placeholder="editar" onclick="editarRecados(${data.id}, ${item.id})" id="editar"></input>   
+                                        `;
+        });
     }
 }
 
-function editarRecado (posicao) {
-    const prioridade = prompt('Digite sua nova prioridade');
-    const descricao = prompt('Digita sua nova descrição');
+async function deletarRecados (id, idRecado) {
 
-    const novaPrioridade = conteudoRecados[posicao].prioridade = prioridade;
-    const novaDescricao = conteudoRecados[posicao].descricao = descricao;
+    await axios.delete(`https://trabalhofinal-jadson-api.herokuapp.com/cadastro/${id}/remover-recados/${idRecado}`, {
+        method: 'DELETE'
+    })
 
-    let conteudo = {
+    exibirRecados ()
+}
+
+async function editarRecados (id, idRecado) {
+    const novoRecado = prompt('Novo recado');
+    const novaPrioridade = prompt('Nova prioridade');
+
+    const recadoAlterado = {
+        recado : novoRecado,
         prioridade : novaPrioridade,
-        descricao : novaDescricao,
     }
 
-    conteudoRecados.push(conteudo);
-    conteudoRecados.splice(conteudoRecados.length -1,1);
-
-    exibirRecado();
-    salvarRecado();
-} 
-
-function removerRecado (posicao) {
-    conteudoRecados.splice(posicao, 1);
-    exibirRecado();
-    salvarRecado();
+    await axios.put(`https://trabalhofinal-jadson-api.herokuapp.com/recados/${id}/alterar-recados/${idRecado}`, recadoAlterado)
+    exibirRecados ()
 }
+
+exibirRecados ()

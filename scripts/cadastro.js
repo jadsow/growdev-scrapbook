@@ -1,34 +1,35 @@
-function criarConta (event) {
+async function criarConta (event) {
     event.preventDefault();
 
-    let usuarios = JSON.parse (localStorage.getItem ('cadastros')) || []
-    let username = document.querySelector ('#create-username');
-    let userpassword = document.querySelector ('#password');
-    let repeatuserpassword = document.querySelector ('#repeat-password')
+    const username = document.querySelector ('#create-username');
+    const userpassword = document.querySelector ('#password');
+    const repeatuserpassword = document.querySelector ('#repeat-password');
+    const succesStatus = 201;
+    const aviso = document.querySelector('#aviso');
 
-    for (user of usuarios) {
-        if (user.username === username.value) {
-            return document.querySelector('#erro').innerHTML = 'Usuário já cadastrado';
-        }
+    const user = {
+        nome: username.value,
+        senha: userpassword.value,
     }
 
-    if (username.value.length <3 || userpassword.value.length <3 || repeatuserpassword.value.length <3) {
-        return document.querySelector('#erro').innerHTML = 'Por favor, revise suas informações';
+    if (userpassword.value !== repeatuserpassword.value){
+        return aviso.innerHTML = 'Suas senhas não coincidem'
+    }  
+    
+    if (!username.value || !userpassword.value || !repeatuserpassword.value){
+        return aviso.innerHTML = 'Insira seus dados'
     }
+    
+    const {status, data} = await axios.post('https://trabalhofinal-jadson-api.herokuapp.com/cadastro', user);
 
-    if (userpassword.value != repeatuserpassword.value) {
-        document.querySelector('#erro').innerHTML = 'Suas senhas não coincidem';
-    } else {
-        document.querySelector('#erro').innerHTML = 'Usuário cadastrado';
-        let usuario = {
-            username: username.value,
-            password: userpassword.value,
-            repeatPassword: repeatuserpassword.value 
-        }
+    if (succesStatus != status) {
+        return aviso.innerHTML = 'Usuário já cadastrado'
+    }
     
-        usuarios.push(usuario);
-    
-        localStorage.setItem('cadastros', JSON.stringify(usuarios))
+    if (succesStatus === status) {
+        data.nome = user.nome;
+        data.senha = user.senha;
+        return aviso.innerHTML = 'Usuário cadastrado'
     }
 }
 
